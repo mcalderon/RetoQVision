@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '5.4.2'
+}
+
+group = 'com.qvision'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:6.0.3')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.platform:junit-platform-suite'
+
+    // Cucumber: solo el motor (cucumber-java ya viene en serenity-cucumber)
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.34.2")
+
+    // Serenity + Screenplay (src/main los necesita → implementation)
+    implementation("net.serenity-bdd:serenity-core:5.3.9")
+    implementation("net.serenity-bdd:serenity-screenplay:5.3.9")
+    implementation("net.serenity-bdd:serenity-screenplay-webdriver:5.3.9")
+
+    // Puente Serenity ↔ Cucumber (lo usa el Runner en src/test)
+    testImplementation("net.serenity-bdd:serenity-cucumber:5.3.9")
+}
+
+test {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
+test.finalizedBy(aggregate)
