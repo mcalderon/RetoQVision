@@ -23,7 +23,7 @@ public class AgregarAlCarrito implements Task {
         this.cantidad = cantidad;
     }
 
-    // "Método fábrica": hace que la Task se lea como una frase
+    // "Metodo fábrica": hace que la Task se lea como una frase
     public static AgregarAlCarrito laCantidadDe (int cantidad) {
         return Tasks.instrumented(AgregarAlCarrito.class, cantidad);
     }
